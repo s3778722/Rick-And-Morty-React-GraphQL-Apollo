@@ -59,7 +59,7 @@ const Characters = () => {
         alignItems="flex-start"
       >
         {characters?.map((character) => (
-          <Grid item xs={6} md={3} >
+          <Grid item xs={6} md={3} className="card-fx" >
             <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
