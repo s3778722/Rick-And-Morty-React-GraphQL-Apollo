@@ -5,14 +5,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Grid, Pagination, PaginationItem } from "@mui/material";
+import {
+  CardActionArea,
+  Grid,
+  Pagination,
+  PaginationItem,
+  TextField,
+} from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { Link, useParams } from "react-router-dom";
 
-
-
 const Characters = () => {
-  const { pageNumber = 1} = useParams()
+  const { pageNumber = 1 } = useParams();
   const [currentPage, setCurrentPage] = useState(pageNumber);
 
   const { loading, error, data } = useQuery(GET_ALL_CHARACTERS, {
@@ -21,7 +25,7 @@ const Characters = () => {
   const [characters, setCharacters] = useState(data?.characters?.results);
   const [pages, setPages] = useState(data?.characters?.info?.pages);
 
-  console.log(pageNumber)
+  console.log(pageNumber);
 
   useEffect(() => {
     if (data) {
@@ -45,12 +49,13 @@ const Characters = () => {
   console.log(pages);
 
   const handlePageChange = (event, value) => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     setCurrentPage(value);
   };
 
   return (
     <div>
+      <TextField id="standard-basic" label="Standard" variant="standard" />
       <Grid
         container
         spacing={3}
@@ -59,7 +64,7 @@ const Characters = () => {
         alignItems="flex-start"
       >
         {characters?.map((character) => (
-          <Grid item xs={6} md={3} className="card-fx" >
+          <Grid item xs={6} md={3} className="card-fx">
             <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
@@ -77,22 +82,21 @@ const Characters = () => {
       <Grid
         container
         direction="row"
-        justifyContent="space-evenly"
+        justifyContent="space-around"
         alignItems="center"
-        style={{ backgroundColor: "#87A96B", marginTop: 30, padding: 5 }}
+        mt={5}
       >
         <Pagination
           count={pages}
           page={Number(pageNumber)}
-          color="primary"
           onChange={handlePageChange}
           renderItem={(item) => (
             <PaginationItem
-               type={"start-ellipsis"}
-               component={Link}
-               selected
-               to={`/page/${item.page}`}
-               {...item}
+              type={"start-ellipsis"}
+              component={Link}
+              selected
+              to={`/page/${item.page}`}
+              {...item}
             />
           )}
         />
