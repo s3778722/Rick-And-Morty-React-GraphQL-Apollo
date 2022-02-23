@@ -11,16 +11,21 @@ import {
   Pagination,
   PaginationItem,
   TextField,
+  Input
 } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const Characters = () => {
   const { pageNumber = 1 } = useParams();
+  const { searchText } = useParams();
+  let navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(pageNumber);
+  const [searchTerm, setSearchTerm] = useState(searchText);
 
   const { loading, error, data } = useQuery(GET_ALL_CHARACTERS, {
-    variables: { page: Number(currentPage) },
+    variables: { page: Number(currentPage), name: searchTerm },
   });
   const [characters, setCharacters] = useState(data?.characters?.results);
   const [pages, setPages] = useState(data?.characters?.info?.pages);
@@ -28,11 +33,12 @@ const Characters = () => {
   console.log(pageNumber);
 
   useEffect(() => {
-    if (data) {
-      setCharacters(data?.characters?.results);
-      setPages(data?.characters?.info?.pages);
-    }
+    setCharacters(data?.characters?.results);
+    setPages(data?.characters?.info?.pages);
   }, [data]);
+
+ 
+
 
   if (loading) {
     return (
@@ -52,10 +58,31 @@ const Characters = () => {
     window.scrollTo(0, 0);
     setCurrentPage(value);
   };
+  const searchCharacterEvent = (e) => {
+    const value = e.target.value
+    const delayDebounceFn = setTimeout(() => {
+      setSearchTerm(value);
+      if (value === ""){
+        navigate('/')
+      }else{
+      navigate(`/search=${value}`)
+      }
+      localStorage.setItem('searchTerm', value);
+    }, 1500)
+    return () => clearTimeout(delayDebounceFn)
+   
+  };
 
   return (
     <div>
-      <TextField id="standard-basic" label="Standard" variant="standard" />
+      <TextField
+        id="standard-basic"
+        variant="standard"
+        placeholder="Search character"
+        style={{ marginBottom: 30 }}
+        defaultValue={searchTerm}
+        onChange={searchCharacterEvent}
+      />
       <Grid
         container
         spacing={3}
@@ -87,6 +114,7 @@ const Characters = () => {
         mt={5}
       >
         <Pagination
+          color="primary"
           count={pages}
           page={Number(pageNumber)}
           onChange={handlePageChange}
@@ -95,7 +123,7 @@ const Characters = () => {
               type={"start-ellipsis"}
               component={Link}
               selected
-              to={`/page/${item.page}`}
+              to={searchTerm ? `/page/${item.page}/search=${searchTerm}` : `/page/${item.page}`}
               {...item}
             />
           )}
