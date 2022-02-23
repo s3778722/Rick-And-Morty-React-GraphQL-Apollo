@@ -38,8 +38,6 @@ const Characters = () => {
   }, [data]);
 
  
-
-
   if (loading) {
     return (
       <div>
@@ -67,7 +65,6 @@ const Characters = () => {
       }else{
       navigate(`/search=${value}`)
       }
-      localStorage.setItem('searchTerm', value);
     }, 1500)
     return () => clearTimeout(delayDebounceFn)
    
@@ -89,6 +86,7 @@ const Characters = () => {
         direction="row"
         justify="flex-start"
         alignItems="flex-start"
+        className="animate__animated animate__zoomIn"
       >
         {characters?.map((character) => (
           <Grid item xs={6} md={3} className="card-fx">

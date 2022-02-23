@@ -61,10 +61,12 @@
 }
 .card-fx {
   transition:  transform 1s;
+
 }
 
 .card-fx:hover {
   transform: scale(0.8) skewY(8deg);
+
 }
 .card-fx:hover:nth-child(2n) { transform:rotate(8deg) scale(0.8)    }
 .card-fx:hover:nth-child(3n) { transform:skewY(-8deg)  scale(0.8)  }
