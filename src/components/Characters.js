@@ -57,6 +57,14 @@ const Characters = () => {
   const statusList = ["alive", "dead", "unknown"];
   const genderList = ["female", "male", "genderless", "unknown"];
 
+  const speciesSet = new Set();
+  for (let index = 0; index < characters?.length; index++) {
+    if (characters[index].species) {
+      speciesSet.add(characters[index].species);
+    }
+  }
+  const speciesList = [...speciesSet];
+
   useEffect(() => {
     setCharacters(data?.characters?.results);
     setPages(data?.characters?.info?.pages);
@@ -68,15 +76,18 @@ const Characters = () => {
         <p>Loading...</p>
       </div>
     );
-  } else {
-    console.log(error);
+  } else if (error) {
+    return(
+    <div>
+    <p>No characters found...</p>
+  </div>)
   }
 
   console.log(data);
   console.log(characters);
   console.log(pages);
 
-  const handlePageChange = (event,value) => {
+  const handlePageChange = (event, value) => {
     window.scrollTo(0, 0);
     setCurrentPage(value);
   };
@@ -85,7 +96,21 @@ const Characters = () => {
     window.scrollTo(0, 0);
     setGender(event.target.value);
     setCurrentPage(1);
-    navigate("/page/1")
+    navigate("/page/1");
+  };
+
+  const handleStatusChange = (event) => {
+    window.scrollTo(0, 0);
+    setStatus(event.target.value);
+    setCurrentPage(1);
+    navigate("/page/1");
+  };
+
+  const handleSpeciesChange = (event) => {
+    window.scrollTo(0, 0);
+    setSpecies(event.target.value);
+    setCurrentPage(1);
+    navigate("/page/1");
   };
 
   const searchCharacterEvent = (e) => {
@@ -120,12 +145,43 @@ const Characters = () => {
           label="Gender"
           onChange={handleGenderChange}
         >
-          {
-            genderList.map(g =>
-              <MenuItem value={g}>{g.charAt(0).toUpperCase() + g.slice(1)}</MenuItem>
-              )
-          }
-          
+          {genderList.map((g) => (
+            <MenuItem value={g}>
+              {g.charAt(0).toUpperCase() + g.slice(1)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={status}
+          label="Status"
+          onChange={handleStatusChange}
+        >
+          {statusList.map((s) => (
+            <MenuItem value={s}>
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Species</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={species}
+          label="Species"
+          onChange={handleSpeciesChange}
+        >
+          {speciesList.map((s) => (
+            <MenuItem value={s}>
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <Grid
@@ -136,13 +192,13 @@ const Characters = () => {
         alignItems="flex-start"
         className="animate__animated animate__zoomIn"
       >
-        {characters?.map((character) => (
+        {characters && characters?.map((character) => (
           <Grid item xs={6} md={3} className="card-fx" key={character.id}>
             <Link
               to={`/character/${character.id}`}
               style={{ textDecoration: "None" }}
             >
-              <Card sx={{ maxWidth: 345, backgroundColor: "#343434" }}>
+              <Card sx={{ maxWidth: 345, backgroundColor: "#008B8B" }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
@@ -153,6 +209,7 @@ const Characters = () => {
                   <Typography
                     fontFamily={BebasNeue}
                     variant="h5"
+                    py={1}
                     style={{ textDecoration: "transparent" }}
                   >
                     {character.name}
