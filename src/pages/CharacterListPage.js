@@ -1,6 +1,6 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Paper } from "@mui/material";
 import Characters from "../components/Characters";
 import ApolloClient from "apollo-boost";
 import { Link } from "react-router-dom";
@@ -34,17 +34,9 @@ const CharacterListPage = () => {
               built using Rick and Morty GraphQL API, React.js and Apollo
               Client.
             </Typography>
-            <Typography
-              color="primary"
-              align="left"
-              variant="h5"
-              pt={5}
-              pb={2}
-              fontFamily={RubikMono}
-            >
-              Characters
-            </Typography>
-
+         
+        
+           
             <Characters />
           </Container>
         </div>
