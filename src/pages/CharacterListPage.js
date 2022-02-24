@@ -29,7 +29,7 @@ const CharacterListPage = () => {
                 Rick and Morty
               </Typography>
             </a>
-            <Typography color="white" align="center" style={{ fontSize: 13 }}>
+            <Typography color="white" align="center" variant="overline">
               A simple site for you to view infomation about Rick and Morty
               built using Rick and Morty GraphQL API, React.js and Apollo
               Client.
