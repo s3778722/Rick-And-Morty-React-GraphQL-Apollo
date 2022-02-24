@@ -43,7 +43,7 @@
   background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.733),
-      rgba(0, 0, 0, 0.73)
+      rgba(0, 0, 0, 0.918)
     ),
     url(./assets/background.jpg);
 
@@ -75,3 +75,7 @@
 }
 .card-fx:hover:nth-child(2n) { transform:rotate(8deg) scale(0.8)    }
 .card-fx:hover:nth-child(3n) { transform:skewY(-8deg)  scale(0.8)  }
+
+.card-color{
+  background-color: #ACE1AF;
+}

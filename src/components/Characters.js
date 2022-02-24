@@ -173,15 +173,15 @@ const Characters = () => {
 
       <Grid
         container
-        pt={2}
-        pb={2}
+        py={2}
+      
         direction="row"
         justifyContent="space-around"
         alignItems="center"
         spacing={3}
       >
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={3}>
+          <FormControl fullWidth  size="small">
             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -199,8 +199,8 @@ const Characters = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={3}>
+          <FormControl fullWidth size="small" >
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -218,18 +218,8 @@ const Characters = () => {
             </Select>
           </FormControl>
         </Grid>
-      </Grid>
-
-      <Grid
-        container
-        pb={2}
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        spacing={3}
-      >
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={3}>
+          <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Species</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -247,8 +237,8 @@ const Characters = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
+        <Grid item xs={12} md={3}>
+          <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Type</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -268,6 +258,8 @@ const Characters = () => {
         </Grid>
       </Grid>
 
+    
+
       <Grid
         container
         spacing={3}
@@ -283,7 +275,7 @@ const Characters = () => {
                 to={`/character/${character.id}`}
                 style={{ textDecoration: "None" }}
               >
-                <Card sx={{ maxWidth: 345, backgroundColor: "#008B8B" }}>
+                <Card sx={{ maxWidth: 345, backgroundColor: '#202020' }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"

@@ -34,9 +34,7 @@ const CharacterListPage = () => {
               built using Rick and Morty GraphQL API, React.js and Apollo
               Client.
             </Typography>
-         
-        
-           
+
             <Characters />
           </Container>
         </div>
