@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-const GET_ALL_CHARACTERS = gql`
+export const GET_ALL_CHARACTERS = gql`
   query GetAllCharacters(
     $page: Int
     $name: String
@@ -47,5 +47,32 @@ const GET_ALL_CHARACTERS = gql`
   }
 `;
 
-
-export default GET_ALL_CHARACTERS;
+export const GET_CHARACTER =  gql`
+  query getCharacter($id: ID!) {
+    character(id: $id) {
+      id
+      name
+      status
+      species
+      type
+      gender
+      image
+      origin {
+        name
+        type
+        dimension
+      }
+      location {
+        name
+        type
+        dimension
+      }
+      episode {
+        name
+        episode
+        air_date
+      }
+      created
+    }
+  }
+`;

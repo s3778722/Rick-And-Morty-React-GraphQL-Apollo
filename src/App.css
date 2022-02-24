@@ -59,6 +59,11 @@
 .text-shadow-black {
   text-shadow: 2px 5px 5px #000000;
 }
+
+.text-shadow-black:hover { 
+  color: #00ff7b
+}
+
 .card-fx {
   transition:  transform 1s;
 

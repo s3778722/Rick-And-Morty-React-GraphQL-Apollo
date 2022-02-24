@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import GET_ALL_CHARACTERS from "../graphql/Queries";
+import { GET_ALL_CHARACTERS } from "../graphql/Queries";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,7 +11,7 @@ import {
   Pagination,
   PaginationItem,
   TextField,
-  Input
+  Input,
 } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -37,7 +37,6 @@ const Characters = () => {
     setPages(data?.characters?.info?.pages);
   }, [data]);
 
- 
   if (loading) {
     return (
       <div>
@@ -57,17 +56,16 @@ const Characters = () => {
     setCurrentPage(value);
   };
   const searchCharacterEvent = (e) => {
-    const value = e.target.value
+    const value = e.target.value;
     const delayDebounceFn = setTimeout(() => {
       setSearchTerm(value);
-      if (value === ""){
-        navigate('/')
-      }else{
-      navigate(`/search=${value}`)
+      if (value === "") {
+        navigate("/");
+      } else {
+        navigate(`/search=${value}`);
       }
-    }, 1500)
-    return () => clearTimeout(delayDebounceFn)
-   
+    }, 1500);
+    return () => clearTimeout(delayDebounceFn);
   };
 
   return (
@@ -89,18 +87,20 @@ const Characters = () => {
         className="animate__animated animate__zoomIn"
       >
         {characters?.map((character) => (
-          <Grid item xs={6} md={3} className="card-fx">
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="300"
-                  image={character.image}
-                  alt={character.name}
-                />
-                <ImageListItemBar title={character.name} />
-              </CardActionArea>
-            </Card>
+          <Grid item xs={6} md={3} className="card-fx" key={character.id}>
+            <Link to={`/character/${character.id}`}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={character.image}
+                    alt={character.name}
+                  />
+                  <ImageListItemBar title={character.name} />
+                </CardActionArea>
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>
@@ -121,7 +121,11 @@ const Characters = () => {
               type={"start-ellipsis"}
               component={Link}
               selected
-              to={searchTerm ? `/page/${item.page}/search=${searchTerm}` : `/page/${item.page}`}
+              to={
+                searchTerm
+                  ? `/page/${item.page}/search=${searchTerm}`
+                  : `/page/${item.page}`
+              }
               {...item}
             />
           )}
