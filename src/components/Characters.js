@@ -58,12 +58,17 @@ const Characters = () => {
   const genderList = ["female", "male", "genderless", "unknown"];
 
   const speciesSet = new Set();
+  const typeSet = new Set();
   for (let index = 0; index < characters?.length; index++) {
     if (characters[index].species) {
       speciesSet.add(characters[index].species);
     }
+    if (characters[index].type) {
+      typeSet.add(characters[index].type);
+    }
   }
   const speciesList = [...speciesSet];
+  const typeList = [...typeSet];
 
   useEffect(() => {
     setCharacters(data?.characters?.results);
@@ -113,6 +118,13 @@ const Characters = () => {
     navigate("/page/1");
   };
 
+  const handleTypeChange = (event) => {
+    window.scrollTo(0, 0);
+    setType(event.target.value);
+    setCurrentPage(1);
+    navigate("/page/1");
+  };
+
   const searchCharacterEvent = (e) => {
     const value = e.target.value;
     const delayDebounceFn = setTimeout(() => {
@@ -141,12 +153,13 @@ const Characters = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          defaultValue=""
           value={gender}
           label="Gender"
           onChange={handleGenderChange}
         >
-          {genderList.map((g) => (
-            <MenuItem value={g}>
+          {genderList.map((g, index) => (
+            <MenuItem value={g} key={index}>
               {g.charAt(0).toUpperCase() + g.slice(1)}
             </MenuItem>
           ))}
@@ -157,12 +170,13 @@ const Characters = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          defaultValue=""
           value={status}
           label="Status"
           onChange={handleStatusChange}
         >
-          {statusList.map((s) => (
-            <MenuItem value={s}>
+          {statusList.map((s,index) => (
+            <MenuItem value={s} key={index}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
             </MenuItem>
           ))}
@@ -173,17 +187,37 @@ const Characters = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          defaultValue=""
           value={species}
           label="Species"
           onChange={handleSpeciesChange}
         >
-          {speciesList.map((s) => (
-            <MenuItem value={s}>
+          {speciesList.map((s,index) => (
+            <MenuItem value={s} key={index}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
+
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          defaultValue=""
+          value={type}
+          label="Type"
+          onChange={handleTypeChange}
+        >
+          {typeList.map((t,index) => (
+            <MenuItem value={t} key={index}>
+              {t.charAt(0).toUpperCase() + t.slice(1)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Grid
         container
         spacing={3}
