@@ -12,6 +12,8 @@ import {
   Grid,
   Avatar,
   CardHeader,
+  Divider,
+  Chip,
 } from "@mui/material";
 const CharacterDetails = () => {
   const BebasNeue = "'Bebas Neue', cursive";
@@ -98,7 +100,7 @@ const CharacterDetails = () => {
                 </Typography>
               )}
               <hr />
-              <Typography variant="body1" color="text.secondary" align="left">
+              <Typography variant="body1" color="text.secondary" align="left" mt={3}>
                 Origin:{" "}
                 {characterDetails?.origin?.name[0].toUpperCase() +
                   characterDetails?.origin?.name.slice(1)}
@@ -108,11 +110,15 @@ const CharacterDetails = () => {
                 {characterDetails?.location?.name[0].toUpperCase() +
                   characterDetails?.location?.name.slice(1)}
               </Typography>
+              <Divider style={{marginTop: 10, marginBottom: 10}} >
+                <Chip label="Episodes" color="primary"/>
+              </Divider>
+              {characterDetails?.episode?.map((e) => (
+                <Typography variant="body2" color="text.secondary" align="left">
+                  {e.episode} - {e.name}
+                </Typography>
+              ))}
             </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
           </Card>
         </Grid>
       </Grid>
