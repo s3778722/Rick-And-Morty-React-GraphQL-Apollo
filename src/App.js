@@ -4,7 +4,7 @@ import { ApolloProvider, useQuery } from "@apollo/react-hooks";
 import React from "react";
 import { Container, Typography } from "@mui/material";
 import CharacterDetails from "./components/CharacterDetails";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import CharacterListPage from "./pages/CharacterListPage";
@@ -52,7 +52,7 @@ function App() {
                 <div className="App">
                   <div className="background-image">
                     <Container>
-                      <a href={"/"} style={{ textDecoration: "None" }}>
+                      <Link to="/" style={{textDecoration: 'none'}}>
                         <Typography
                           color="#32de84"
                           align="center"
@@ -63,11 +63,11 @@ function App() {
                         >
                           Rick and Morty
                         </Typography>
-                      </a>
+                      </Link>
                       <Typography
-                        color="white"
+                        color="text.secondary"
                         align="center"
-                        variant="overline"
+                        variant="subtitle2"
                       >
                         A simple site for you to view infomation about Rick and
                         Morty built using Rick and Morty GraphQL API, React.js

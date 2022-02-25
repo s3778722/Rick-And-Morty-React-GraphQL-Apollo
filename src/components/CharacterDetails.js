@@ -14,8 +14,10 @@ import {
   CardHeader,
   Divider,
   Chip,
+  Box,
 } from "@mui/material";
 import Spinner from "./Spinner";
+import CloseIcon from "@mui/icons-material/Close";
 const CharacterDetails = () => {
   const BebasNeue = "'Bebas Neue', cursive";
   const RubikMono = "'Rubik Mono One', sans-serif";
@@ -33,7 +35,7 @@ const CharacterDetails = () => {
   }, [data]);
 
   if (loading) {
-    return <Spinner/>;
+    return <Spinner />;
   }
   console.log(characterDetails);
   return (
@@ -46,29 +48,40 @@ const CharacterDetails = () => {
         alignItems="center"
       >
         <Grid item my={5}>
-          <Card sx={{ maxWidth: 500 }}className="animate__animated animate__fadeInUp">
-            <Typography
-              color="primary.dark"
-              pt={2}
-              variant="body1"
-              fontFamily={RubikMono}
-            >
-              Character Details
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              component="div"
-              color="text.secondary"
-            >
-              Date created: {characterDetails?.created.slice(0, 10)}
-            </Typography>
+          <Card
+            sx={{ maxWidth: 500 }}
+            className="animate__animated animate__fadeInUp"
+          >
+          
+            
+             <div style={{paddingTop: 20}}>
+                <Typography
+                  color="primary.dark"
+                  variant="body1"
+                  fontFamily={RubikMono}
+                  align="center"
+                >
+                  Character Details
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  component="div"
+                  color="text.secondary"
+                  align="center"
+                >
+                  Date created: {characterDetails?.created.slice(0, 10)}
+                </Typography>
+                </div>
+              
+        
+
             <CardMedia
               component="img"
               image={characterDetails?.image}
-              alt="green iguana"
+              alt={characterDetails?.name}
               style={{
                 padding: 30,
-                borderRadius: "50%",
+                borderRadius: "15%",
               }}
             />
             <CardContent>
@@ -103,7 +116,12 @@ const CharacterDetails = () => {
                 </Typography>
               )}
               <hr />
-              <Typography variant="body1" color="text.secondary" align="left" mt={3}>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                align="left"
+                mt={3}
+              >
                 Origin:{" "}
                 {characterDetails?.origin?.name[0].toUpperCase() +
                   characterDetails?.origin?.name.slice(1)}
@@ -113,8 +131,8 @@ const CharacterDetails = () => {
                 {characterDetails?.location?.name[0].toUpperCase() +
                   characterDetails?.location?.name.slice(1)}
               </Typography>
-              <Divider style={{marginTop: 10, marginBottom: 10}} >
-                <Chip label="Episodes" color="primary"/>
+              <Divider style={{ marginTop: 10, marginBottom: 10 }}>
+                <Chip label="Episodes" color="primary" />
               </Divider>
               {characterDetails?.episode?.map((e) => (
                 <Typography variant="body2" color="text.secondary" align="left">
