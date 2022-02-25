@@ -15,22 +15,25 @@ import {
   Divider,
   Chip,
 } from "@mui/material";
+import Spinner from "./Spinner";
 const CharacterDetails = () => {
   const BebasNeue = "'Bebas Neue', cursive";
   const RubikMono = "'Rubik Mono One', sans-serif";
 
   const { characterId } = useParams();
   console.log(characterId);
+
   const { loading, error, data } = useQuery(GET_CHARACTER, {
     variables: { id: characterId },
   });
+
   const [characterDetails, setCharacterDetails] = useState(data?.character);
   useEffect(() => {
     setCharacterDetails(data?.character);
   }, [data]);
 
   if (loading) {
-    return "loading...";
+    return <Spinner/>;
   }
   console.log(characterDetails);
   return (
@@ -43,7 +46,7 @@ const CharacterDetails = () => {
         alignItems="center"
       >
         <Grid item my={5}>
-          <Card sx={{ maxWidth: 500 }}>
+          <Card sx={{ maxWidth: 500 }}className="animate__animated animate__fadeInUp">
             <Typography
               color="primary.dark"
               pt={2}

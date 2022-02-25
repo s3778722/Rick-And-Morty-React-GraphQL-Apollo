@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const Characters = () => {
   const RubikMono = "'Rubik Mono One', sans-serif";
@@ -40,19 +41,20 @@ const Characters = () => {
   const [type, setType] = useState(typeParam);
   const [gender, setGender] = useState(genderParam);
 
+  
   const { loading, error, data } = useQuery(GET_ALL_CHARACTERS, {
     variables: {
       page: Number(currentPage),
-      name: searchTerm,
-      status: status,
-      species: species,
+      name: searchTerm ,
+      status: status ,
+      species: species ,
       type: type,
       gender: gender,
     },
   });
   const [characters, setCharacters] = useState(data?.characters?.results);
   const [pages, setPages] = useState(data?.characters?.info?.pages);
-
+  console.log(data)
   console.log(pageNumber);
 
   const statusList = ["alive", "dead", "unknown"];
@@ -78,9 +80,7 @@ const Characters = () => {
 
   if (loading) {
     return (
-      <div>
-        <p>Loading...</p>
-      </div>
+      <Spinner/>
     );
   } else if (error) {
     return (
@@ -103,28 +103,36 @@ const Characters = () => {
     window.scrollTo(0, 0);
     setGender(event.target.value);
     setCurrentPage(1);
-    navigate("/page/1");
+    navigate(
+      `/gender=${event.target.value}`
+    );
   };
 
   const handleStatusChange = (event) => {
     window.scrollTo(0, 0);
     setStatus(event.target.value);
     setCurrentPage(1);
-    navigate("/page/1");
+    navigate(
+      `/status=${event.target.value}`
+    );
   };
 
   const handleSpeciesChange = (event) => {
     window.scrollTo(0, 0);
     setSpecies(event.target.value);
     setCurrentPage(1);
-    navigate("/page/1");
+    navigate(
+      `/species=${event.target.value}`
+    );
   };
 
   const handleTypeChange = (event) => {
     window.scrollTo(0, 0);
     setType(event.target.value);
     setCurrentPage(1);
-    navigate("/page/1");
+    navigate(
+      `/type=${event.target.value}`
+    );
   };
 
   const searchCharacterEvent = (e) => {
@@ -174,14 +182,13 @@ const Characters = () => {
       <Grid
         container
         py={2}
-      
         direction="row"
         justifyContent="space-around"
         alignItems="center"
         spacing={3}
       >
         <Grid item xs={12} md={3}>
-          <FormControl fullWidth  size="small">
+          <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -200,7 +207,7 @@ const Characters = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormControl fullWidth size="small" >
+          <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -258,8 +265,6 @@ const Characters = () => {
         </Grid>
       </Grid>
 
-    
-
       <Grid
         container
         spacing={3}
@@ -275,7 +280,7 @@ const Characters = () => {
                 to={`/character/${character.id}`}
                 style={{ textDecoration: "None" }}
               >
-                <Card sx={{ maxWidth: 345, backgroundColor: '#202020' }}>
+                <Card sx={{ maxWidth: 345, backgroundColor: "#202020" }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"

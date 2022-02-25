@@ -35,10 +35,16 @@ function App() {
           <Route path="/" element={<CharacterListPage />} />
           <Route path="/page/:pageNumber/" element={<CharacterListPage />} />
           <Route path="/search=:searchText/" element={<CharacterListPage />} />
+          <Route path="/gender=:genderParam/" element={<CharacterListPage />} />
+          <Route path="/status=:statusParam/" element={<CharacterListPage />} />
+          <Route path="/species=:speciesParam/" element={<CharacterListPage />} />
+          <Route path="/type=:typeParam/" element={<CharacterListPage />} />
+
           <Route
             path="/page/:pageNumber/search=:searchText"
             element={<CharacterListPage />}
           />
+      
           <Route
             path="/character/:characterId"
             element={
@@ -61,7 +67,7 @@ function App() {
                       <Typography
                         color="white"
                         align="center"
-                        style={{ fontSize: 13 }}
+                        variant="overline"
                       >
                         A simple site for you to view infomation about Rick and
                         Morty built using Rick and Morty GraphQL API, React.js
