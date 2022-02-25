@@ -1,20 +1,123 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { GET_CHARACTER } from "../graphql/Queries";
 import { useQuery } from "@apollo/react-hooks";
-
+import {
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+  Card,
+  Grid,
+  Avatar,
+  CardHeader,
+} from "@mui/material";
 const CharacterDetails = () => {
+  const BebasNeue = "'Bebas Neue', cursive";
+  const RubikMono = "'Rubik Mono One', sans-serif";
+
   const { characterId } = useParams();
   console.log(characterId);
   const { loading, error, data } = useQuery(GET_CHARACTER, {
-   variables: {id: characterId}}
-  );
+    variables: { id: characterId },
+  });
+  const [characterDetails, setCharacterDetails] = useState(data?.character);
+  useEffect(() => {
+    setCharacterDetails(data?.character);
+  }, [data]);
 
   if (loading) {
     return "loading...";
   }
-  console.log(data);
-  return <div>CharacterDetails</div>;
+  console.log(characterDetails);
+  return (
+    <div>
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item my={5}>
+          <Card sx={{ maxWidth: 500 }}>
+            <Typography
+              color="primary.dark"
+              pt={2}
+              variant="body1"
+              fontFamily={RubikMono}
+            >
+              Character Details
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              component="div"
+              color="text.secondary"
+            >
+              Date created: {characterDetails?.created.slice(0, 10)}
+            </Typography>
+            <CardMedia
+              component="img"
+              image={characterDetails?.image}
+              alt="green iguana"
+              style={{
+                padding: 30,
+                borderRadius: "50%",
+              }}
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h3"
+                component="div"
+                fontFamily={BebasNeue}
+                color="primary"
+              >
+                {characterDetails?.name}
+              </Typography>
+              <hr />
+              <Typography
+                variant="overline"
+                component="div"
+                color="primary.dark"
+              >
+                ({characterDetails?.gender})
+              </Typography>
+              <Typography gutterBottom variant="overline" component="div">
+                {characterDetails?.status} - {characterDetails?.species}
+              </Typography>
+              {characterDetails?.type && (
+                <Typography
+                  gutterBottom
+                  variant="overline"
+                  component="div"
+                  color="text.secondary"
+                >
+                  {characterDetails?.type}
+                </Typography>
+              )}
+              <hr />
+              <Typography variant="body1" color="text.secondary" align="left">
+                Origin:{" "}
+                {characterDetails?.origin?.name[0].toUpperCase() +
+                  characterDetails?.origin?.name.slice(1)}
+              </Typography>
+              <Typography variant="body1" color="text.secondary" align="left">
+                Last known location:{" "}
+                {characterDetails?.location?.name[0].toUpperCase() +
+                  characterDetails?.location?.name.slice(1)}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Share</Button>
+              <Button size="small">Learn More</Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
+    </div>
+  );
 };
 
 export default CharacterDetails;
