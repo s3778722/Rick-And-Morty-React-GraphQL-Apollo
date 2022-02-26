@@ -16,6 +16,7 @@ import {
   MenuItem,
   Select,
   InputLabel,
+  Button,
 } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -27,34 +28,33 @@ const Characters = () => {
   const {
     pageNumber = 1,
     searchText,
-    statusParam,
-    speciesParam,
-    typeParam,
-    genderParam,
+    statusParam = null,
+    speciesParam = null,
+    typeParam = null,
+    genderParam = null,
   } = useParams();
   let navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(Number(pageNumber));
   const [searchTerm, setSearchTerm] = useState(searchText);
-  const [status, setStatus] = useState(statusParam);
-  const [species, setSpecies] = useState(speciesParam);
-  const [type, setType] = useState(typeParam);
-  const [gender, setGender] = useState(genderParam);
+  const [status, setStatus] = useState(localStorage.getItem("status") || "");
+  const [species, setSpecies] = useState(localStorage.getItem("species") || "");
+  const [type, setType] = useState(localStorage.getItem("type") || "");
+  const [gender, setGender] = useState(localStorage.getItem("gender") || "");
 
-  
   const { loading, error, data } = useQuery(GET_ALL_CHARACTERS, {
     variables: {
       page: Number(currentPage),
-      name: searchTerm ,
-      status: status ,
-      species: species ,
+      name: searchTerm,
+      status: status,
+      species: species,
       type: type,
       gender: gender,
     },
   });
   const [characters, setCharacters] = useState(data?.characters?.results);
   const [pages, setPages] = useState(data?.characters?.info?.pages);
-  console.log(data)
+  console.log(data);
   console.log(pageNumber);
 
   const statusList = ["alive", "dead", "unknown"];
@@ -79,9 +79,7 @@ const Characters = () => {
   }, [data]);
 
   if (loading) {
-    return (
-      <Spinner/>
-    );
+    return <Spinner />;
   } else if (error) {
     return (
       <div>
@@ -103,36 +101,32 @@ const Characters = () => {
     window.scrollTo(0, 0);
     setGender(event.target.value);
     setCurrentPage(1);
-    navigate(
-      `/gender=${event.target.value}`
-    );
+    navigate(`/gender=${event.target.value}/status=${statusParam}/species=${speciesParam}/type=${typeParam}`);
+    localStorage.setItem("gender", event.target.value);
   };
 
   const handleStatusChange = (event) => {
     window.scrollTo(0, 0);
     setStatus(event.target.value);
     setCurrentPage(1);
-    navigate(
-      `/status=${event.target.value}`
-    );
+    navigate(`/gender=${genderParam}/status=${event.target.value}/species=${speciesParam}/type=${typeParam}`);
+    localStorage.setItem("status", event.target.value);
   };
 
   const handleSpeciesChange = (event) => {
     window.scrollTo(0, 0);
     setSpecies(event.target.value);
     setCurrentPage(1);
-    navigate(
-      `/species=${event.target.value}`
-    );
+    navigate(`/gender=${genderParam}/status=${statusParam}/species=${event.target.value}/type=${typeParam}`);
+    localStorage.setItem("species", event.target.value);
   };
 
   const handleTypeChange = (event) => {
     window.scrollTo(0, 0);
     setType(event.target.value);
     setCurrentPage(1);
-    navigate(
-      `/type=${event.target.value}`
-    );
+    navigate(`/gender=${genderParam}/status=${statusParam}/species=${speciesParam}/type=${event.target.value}`);
+    localStorage.setItem("type", event.target.value);
   };
 
   const searchCharacterEvent = (e) => {
@@ -148,8 +142,18 @@ const Characters = () => {
     return () => clearTimeout(delayDebounceFn);
   };
 
+  const resetEvent = () => {
+    localStorage.clear();
+    setStatus("");
+    setSpecies("");
+    setType("");
+    setGender("");
+    navigate("/");
+  };
+
   return (
     <div>
+      {" "}
       <Grid
         container
         pt={5}
@@ -178,7 +182,6 @@ const Characters = () => {
           />
         </Grid>
       </Grid>
-
       <Grid
         container
         py={2}
@@ -264,7 +267,7 @@ const Characters = () => {
           </FormControl>
         </Grid>
       </Grid>
-
+      <Button onClick={resetEvent} style={{marginBottom: 20}}>Reset Filters</Button>
       <Grid
         container
         spacing={3}

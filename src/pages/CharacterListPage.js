@@ -12,6 +12,11 @@ const CharacterListPage = () => {
   const PressStart2P = "'Press Start 2P', cursive";
   const RubikMono = "'Rubik Mono One', sans-serif";
 
+  const resetEvent = () => {
+    localStorage.clear();
+  
+  };
+
   return (
     <ApolloProvider client={client}>
       <div className="App">
@@ -25,6 +30,7 @@ const CharacterListPage = () => {
                 fontFamily={PressStart2P}
                 className="text-shadow-black"
                 pt={5}
+                onClick={resetEvent}
               >
                 Rick and Morty
               </Typography>

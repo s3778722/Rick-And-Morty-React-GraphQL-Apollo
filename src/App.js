@@ -27,6 +27,11 @@ function App() {
     },
   });
 
+  const resetEvent = () => {
+    localStorage.clear();
+  
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -39,6 +44,7 @@ function App() {
           <Route path="/status=:statusParam/" element={<CharacterListPage />} />
           <Route path="/species=:speciesParam/" element={<CharacterListPage />} />
           <Route path="/type=:typeParam/" element={<CharacterListPage />} />
+          <Route path="/gender=:genderParam/status=:statusParam/species=:speciesParam/type=:typeParam/" element={<CharacterListPage />} />
 
           <Route
             path="/page/:pageNumber/search=:searchText"
@@ -52,7 +58,7 @@ function App() {
                 <div className="App">
                   <div className="background-image">
                     <Container>
-                      <Link to="/" style={{textDecoration: 'none'}}>
+                      <Link to="/" style={{textDecoration: 'none'}} onClick={resetEvent}>
                         <Typography
                           color="#32de84"
                           align="center"
