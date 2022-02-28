@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import CharacterListPage from "./pages/CharacterListPage";
+import Footer from "./components/Footer";
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql/",
 });
@@ -29,7 +30,6 @@ function App() {
 
   const resetEvent = () => {
     localStorage.clear();
-  
   };
 
   return (
@@ -40,17 +40,16 @@ function App() {
           <Route path="/" element={<CharacterListPage />} />
           <Route path="/page/:pageNumber/" element={<CharacterListPage />} />
           <Route path="/search=:searchText/" element={<CharacterListPage />} />
-          <Route path="/gender=:genderParam/" element={<CharacterListPage />} />
-          <Route path="/status=:statusParam/" element={<CharacterListPage />} />
-          <Route path="/species=:speciesParam/" element={<CharacterListPage />} />
-          <Route path="/type=:typeParam/" element={<CharacterListPage />} />
-          <Route path="/gender=:genderParam/status=:statusParam/species=:speciesParam/type=:typeParam/" element={<CharacterListPage />} />
+          <Route
+            path="/gender=:genderParam/status=:statusParam/species=:speciesParam/type=:typeParam/"
+            element={<CharacterListPage />}
+          />
 
           <Route
             path="/page/:pageNumber/search=:searchText"
             element={<CharacterListPage />}
           />
-      
+
           <Route
             path="/character/:characterId"
             element={
@@ -58,7 +57,11 @@ function App() {
                 <div className="App">
                   <div className="background-image">
                     <Container>
-                      <Link to="/" style={{textDecoration: 'none'}} onClick={resetEvent}>
+                      <Link
+                        to="/"
+                        style={{ textDecoration: "none" }}
+                        onClick={resetEvent}
+                      >
                         <Typography
                           color="#32de84"
                           align="center"
@@ -81,6 +84,7 @@ function App() {
                       </Typography>
                       <CharacterDetails />
                     </Container>
+                    <Footer/>
                   </div>
                 </div>
               </ApolloProvider>

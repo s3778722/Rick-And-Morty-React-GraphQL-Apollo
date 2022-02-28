@@ -15,10 +15,14 @@ import {
   Divider,
   Chip,
   Box,
+
 } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import Spinner from "./Spinner";
-import CloseIcon from "@mui/icons-material/Close";
+
+
 const CharacterDetails = () => {
+  let navigate = useNavigate();
   const BebasNeue = "'Bebas Neue', cursive";
   const RubikMono = "'Rubik Mono One', sans-serif";
 
@@ -38,6 +42,11 @@ const CharacterDetails = () => {
     return <Spinner />;
   }
   console.log(characterDetails);
+  const resetEvent = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div>
       <Grid
@@ -50,30 +59,36 @@ const CharacterDetails = () => {
         <Grid item my={5}>
           <Card
             sx={{ maxWidth: 500 }}
-            className="animate__animated animate__fadeInUp"
+            className="animate__animated animate__fadeInLeft"
           >
-          
-            
-             <div style={{paddingTop: 20}}>
-                <Typography
-                  color="primary.dark"
-                  variant="body1"
-                  fontFamily={RubikMono}
-                  align="center"
-                >
-                  Character Details
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  component="div"
-                  color="text.secondary"
-                  align="center"
-                >
-                  Date created: {characterDetails?.created.slice(0, 10)}
-                </Typography>
-                </div>
-              
-        
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="center"
+            >
+              <Button onClick={resetEvent}>Close
+              <CloseIcon/>
+              </Button>
+            </Grid>
+            <div style={{ paddingTop: 5 }}>
+              <Typography
+                color="primary.dark"
+                variant="body1"
+                fontFamily={RubikMono}
+                align="center"
+              >
+                Character Details
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                component="div"
+                color="text.secondary"
+                align="center"
+              >
+                Date created: {characterDetails?.created.slice(0, 10)}
+              </Typography>
+            </div>
 
             <CardMedia
               component="img"
@@ -143,6 +158,7 @@ const CharacterDetails = () => {
           </Card>
         </Grid>
       </Grid>
+
     </div>
   );
 };
