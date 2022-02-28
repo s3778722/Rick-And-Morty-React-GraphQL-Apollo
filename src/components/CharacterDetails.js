@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { GET_CHARACTER } from "../graphql/Queries";
 import { useQuery } from "@apollo/react-hooks";
 import {
   CardMedia,
   CardContent,
   Typography,
-  CardActions,
   Button,
   Card,
   Grid,
-  Avatar,
-  CardHeader,
   Divider,
   Chip,
-  Box,
-
 } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import Spinner from "./Spinner";
-
 
 const CharacterDetails = () => {
   let navigate = useNavigate();
@@ -40,6 +34,8 @@ const CharacterDetails = () => {
 
   if (loading) {
     return <Spinner />;
+  } else if (error){
+    console.log(error)
   }
   console.log(characterDetails);
   const resetEvent = () => {
@@ -67,8 +63,9 @@ const CharacterDetails = () => {
               justifyContent="flex-end"
               alignItems="center"
             >
-              <Button onClick={resetEvent}>Close
-              <CloseIcon/>
+              <Button onClick={resetEvent}>
+                Close
+                <CloseIcon />
               </Button>
             </Grid>
             <div style={{ paddingTop: 5 }}>
@@ -158,7 +155,6 @@ const CharacterDetails = () => {
           </Card>
         </Grid>
       </Grid>
-
     </div>
   );
 };

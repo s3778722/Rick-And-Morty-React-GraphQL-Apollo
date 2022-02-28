@@ -1,16 +1,14 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { Container, Typography, Paper } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Characters from "../components/Characters";
 import ApolloClient from "apollo-boost";
-import { Link } from "react-router-dom";
 
 const CharacterListPage = () => {
   const client = new ApolloClient({
     uri: "https://rickandmortyapi.com/graphql/",
   });
   const PressStart2P = "'Press Start 2P', cursive";
-  const RubikMono = "'Rubik Mono One', sans-serif";
 
   const resetEvent = () => {
     localStorage.clear();

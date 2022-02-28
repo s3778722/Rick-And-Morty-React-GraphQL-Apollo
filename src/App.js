@@ -1,6 +1,6 @@
 import "./App.css";
 import ApolloClient from "apollo-boost";
-import { ApolloProvider, useQuery } from "@apollo/react-hooks";
+import { ApolloProvider} from "@apollo/react-hooks";
 import React from "react";
 import { Container, Typography } from "@mui/material";
 import CharacterDetails from "./components/CharacterDetails";
@@ -14,8 +14,7 @@ const client = new ApolloClient({
 });
 
 const PressStart2P = "'Press Start 2P', cursive";
-const BebasNeue = "'Bebas Neue', cursive";
-const RubikMono = "'Rubik Mono One', sans-serif";
+
 
 function App() {
   const darkTheme = createTheme({

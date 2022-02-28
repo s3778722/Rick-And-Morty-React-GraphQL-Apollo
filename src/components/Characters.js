@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_ALL_CHARACTERS } from "../graphql/Queries";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
@@ -11,14 +10,13 @@ import {
   Pagination,
   PaginationItem,
   TextField,
-  Input,
+
   FormControl,
   MenuItem,
   Select,
   InputLabel,
   Button,
 } from "@mui/material";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 
