@@ -28,7 +28,6 @@ example of how to use @apollo/react-hooks can be found in containers/Characters.
 
 When you are done send us back a link to your git repository.
 
-If you have any questions please reach out to david@mojocrowe.com
 
 ### Minimum requirements
 
